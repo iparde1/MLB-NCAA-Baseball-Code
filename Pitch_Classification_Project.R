@@ -19,7 +19,7 @@ library(rpart.plot)
 ############################### 1. Data Import and Cleaning ###############################
 
 # import data using na.strings field to convert the blank cells to true NA
-allpitches <- read.csv("/Users/isabellehpardew/Desktop/Padres_Project_Data_09_19.csv", header = TRUE, 
+allpitches <- read.csv("/Users/isabellehpardew/Desktop/Pitch_Data.csv", header = TRUE, 
                        sep = ",", quote = "\"", dec = ".", 
                        fill = TRUE, comment.char = "", 
                        as.is = TRUE, na.strings=c("","NA"))
