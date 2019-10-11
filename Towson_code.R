@@ -3,7 +3,7 @@
 # regular season conference wins?
 
 # Read in past years' data for conference statistics (all teams) game-by-game
-df <- read.csv("/Users/**user_name**/Documents/Season_CAA_Stats_1.csv", header = TRUE, 
+df <- read.csv("/Users/isabellehpardew/Documents/Season_CAA_Stats_1.csv", header = TRUE, 
                  sep = ",", quote = "\"", dec = ".", 
                  fill = TRUE, comment.char = "", 
                  as.is = TRUE, na.strings = ".")
@@ -23,7 +23,7 @@ relImportance <- calc.relimp(lmModel1, type = "lmg", rela = TRUE)
 sort(relImportance$lmg, decreasing=TRUE)
 
 # Read in past years' data for conference statistics (all teams) season-by-season
-totals <- read.csv("/Users/**user_name**/Documents/Total_CAA_Stats_FINAL.csv", header = TRUE, 
+totals <- read.csv("/Users/isabellehpardew/Documents/Total_CAA_Stats_FINAL.csv", header = TRUE, 
                    sep = ",", quote = "\"", dec = ".", 
                    fill = TRUE, comment.char = "", 
                    as.is = TRUE, na.strings = ".")
@@ -179,23 +179,7 @@ ncaa_parse_adj <- function(pbp_data_frame){
         str_detect(bat_text, '(walked|walks|singled|singles|doubled|doubles|tripled|triples|reached|reaches|struck out|strikes out|grounded out|grounds out)')==FALSE & str_detect(bat_text, '(advanced|caught stealing|stole|picked off|out at (first|second|third|home)|tagged out)')==TRUE ~ '',
         str_detect(bat_text, '(singled|singles|doubled|doubles|tripled|triples|homered|homerun|walked|walks|reached|reaches|struck out|strikes out|grounded|grounds out|flied|flies out|lined|lines out|popped|pops up|hit | out |fouled out|pinch hit|infield fly|intentionally walked|was intentionally walked|fouled into double play)')==TRUE ~ gsub('((singled|doubled|tripled|homered|walked|reached|struck out|grounded|flied|lined|popped|hit | out |fouled out|pinch hit|infield fly|intentionally walked|was intentionally walked|fouled into double play).*$)', '', bat_text),
         str_detect(stripwhite(r1_text), 'caught stealing  c to (2b|3b), double play.')==TRUE ~ bat_text,
-        TRUE ~ ''),
-      
-      # Was a substitution made?
-      sub_in= case_when(
-        sub_fl==1&str_detect(bat_text, 'to (p|c|1b|2b|3b|ss|lf|rf|cf|dh)')==TRUE ~ stripwhite(gsub('(to (p|c|1b|2b|3b|ss|lf|rf|cf|dh).*$)', '', bat_text)),
-        sub_fl==1&str_detect(bat_text, 'pinch ran for')==TRUE ~ stripwhite(gsub('pinch ran for.*$', '', bat_text)),
-        sub_fl==1&str_detect(bat_text, 'pinch hit for')==TRUE ~ stripwhite(gsub('pinch hit for.*$', '', bat_text)),
-        TRUE ~ ''),
-      
-      # Did a player sub out?
-      sub_out= case_when(
-        sub_fl==1&str_detect(bat_text, 'to (p|c|1b|2b|3b|ss|lf|rf|cf|dh) for')==TRUE ~ gsub('^.*to (p|c|1b|2b|3b|ss|lf|rf|cf|dh) for', '', bat_text),
-        sub_fl==1&str_detect(bat_text, 'pinch ran for')==TRUE ~ gsub('^.*pinch ran for', '', bat_text),
-        sub_fl==1&str_detect(bat_text, 'pinch hit')==TRUE ~ gsub('^.*pinch hit for', '', bat_text),
-        TRUE ~ ''),
-      # Clean up the "sub out" column
-      sub_out=strip_punc(sub_out)
+        TRUE ~ '')
       )
 }
 
